@@ -240,8 +240,7 @@ def load_or_train_model():
             return model, metrics
         except Exception as e:
             st.sidebar.warning(f"⚠️ Cache load error: {e}. Retraining...")
-    
-    # Load data
+
     with st.spinner("🔄 Loading and preprocessing data..."):
         try:
             possible_paths = [
@@ -251,7 +250,6 @@ def load_or_train_model():
             for path in possible_paths:
                 if os.path.exists(path):
                     df = pd.read_csv(path)
-                    st.sidebar.info(f"📁 Loaded from: {path}")
                     break
 
             df = df[['title', 'real']].copy()
@@ -275,7 +273,6 @@ def load_or_train_model():
     
     with st.spinner("🤖 Training machine learning model... (This may take 1-2 minutes)"):
         try:
-            # Split data
             X_train, X_test, y_train, y_test = train_test_split(
                 df['title'], df['real'], 
                 test_size=0.2, 
@@ -285,8 +282,7 @@ def load_or_train_model():
             
             st.sidebar.info(f"📈 Training set: {len(X_train)} articles")
             st.sidebar.info(f"📈 Test set: {len(X_test)} articles")
-            
-            # Create pipeline
+
             model = Pipeline([
                 ('tfidf', TfidfVectorizer(
                     max_features=5000,
@@ -297,11 +293,9 @@ def load_or_train_model():
                 )),
                 ('clf', MultinomialNB())
             ])
-            
-            # Train
+
             model.fit(X_train, y_train)
             
-            # Evaluate
             y_pred = model.predict(X_test)
             
             accuracy = accuracy_score(y_test, y_pred)
@@ -317,7 +311,6 @@ def load_or_train_model():
                 'f1': float(f1)
             }
             
-            # Save to disk
             try:
                 with open(model_path, 'wb') as f:
                     pickle.dump(model, f)
@@ -336,7 +329,6 @@ def load_or_train_model():
             return None, None
 
 
-# Header
 st.markdown("""
 <div class="main-header">
     <h1>🔍 Fake News Detector</h1>
@@ -344,10 +336,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Load or train model
 model, metrics = load_or_train_model()
 
-# Sidebar
 with st.sidebar:
     st.markdown("### ⚙️ App Settings")
     confidence_threshold = st.slider(
@@ -366,7 +356,7 @@ with st.sidebar:
         "It's trained on real-world news datasets."
     )
     
-# Main tabs
+
 tab1, tab2, tab3, tab4 = st.tabs(["🔎 Detect News", "📊 Model Performance", "📈 Batch Analysis", "❓ How It Works"])
 
 
@@ -384,7 +374,7 @@ with tab1:
         )
     
     with col2:
-        st.markdown("#### ⚡ Quick Actions")
+        st.markdown("#### ⚡Actions")
         if st.button("🔍 Analyze Article", use_container_width=True):
             if news_text.strip():
                 prediction, probability = predict_news(news_text, model)
@@ -400,8 +390,7 @@ with tab1:
     if 'last_prediction' in st.session_state:
         prediction = st.session_state.last_prediction
         probability = st.session_state.last_probability
-        
-        # Result container
+
         if prediction == 0:  
             st.markdown(f"""
             <div class="prediction-container prediction-fake">
@@ -633,7 +622,7 @@ with tab4:
     - Always verify with multiple sources
     """)
 
-# Footer
+
 st.divider()
 st.markdown("""
 <div style='text-align: center; color: #b0b0b0; padding: 2rem; margin-top: 3rem;'>
