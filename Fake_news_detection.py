@@ -245,7 +245,7 @@ def load_or_train_model():
     with st.spinner("🔄 Loading and preprocessing data..."):
         try:
             possible_paths = [
-                "C:\\Users\\savita\\Downloads\\FakeNewsNet.csv"]
+                "FakeNewsNet.csv"]
             
             df = None
             for path in possible_paths:
