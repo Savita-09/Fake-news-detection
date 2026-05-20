@@ -3,6 +3,4 @@ pandas
 pickle
 scikit-learn
 numpy
-re
-os
 warnings
