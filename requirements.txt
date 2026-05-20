@@ -2,5 +2,3 @@ streamlit
 pandas
 pickle
 scikit-learn
-numpy
-warnings
