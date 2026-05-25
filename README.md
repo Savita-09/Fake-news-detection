@@ -46,4 +46,4 @@ Built with Python, Scikit-learn, Natural Language Processing (NLP), and Streamli
 
 ✅ User-friendly interface
 
-## Project Link : https://fake-news-detection-system48rgfd.streamlit.app
+## 🌐 Live Demo : https://fake-news-detection-system48rgfd.streamlit.app
