@@ -1,7 +1,8 @@
 # 🔍 Fake News Detection
 
-Fake news spreads rapidly across digital platforms and social media, making automated misinformation detection increasingly important. 
+A Machine Learning and NLP-powered web application that detects whether a news article is Real or Fake using text classification techniques.
 This project uses Natural Language Processing (NLP) and Machine Learning algorithms to classify news articles based on their textual content.
+Built with Python, Scikit-learn, Natural Language Processing (NLP), and Streamlit for an interactive web interface.
 
 ## The application allows users to:
 
